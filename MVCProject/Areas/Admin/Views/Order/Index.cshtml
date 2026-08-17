@@ -1,0 +1,56 @@
+@model List<Order>
+
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<div class="row">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-3">Orders</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Customer</th>
+                                <th>Items</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var order in Model)
+                            {
+                                <tr>
+                                    <td>@order.Id</td>
+                                    <td>@order.User?.Email</td>
+                                    <td>@order.OrderItems.Count</td>
+                                    <td>@order.TotalPrice.ToString("C")</td>
+                                    <td><span class="badge bg-primary">@order.Status</span></td>
+                                    <td>@order.CreatedAt.ToString("dd MMM yyyy")</td>
+                                    <td>
+                                        <a asp-area="Admin" asp-controller="Order" asp-action="Details" asp-route-id="@order.Id" class="btn btn-sm btn-info">
+                                            <i class="mdi mdi-eye"></i>
+                                        </a>
+                                        <a asp-area="Admin" asp-controller="Order" asp-action="Update" asp-route-id="@order.Id" class="btn btn-sm btn-warning">
+                                            <i class="mdi mdi-pencil"></i>
+                                        </a>
+                                        <form asp-area="Admin" asp-controller="Order" asp-action="Delete" asp-route-id="@order.Id" method="post" class="d-inline" onsubmit="return confirm('Cancel this order?');">
+                                            <button type="submit" class="btn btn-sm btn-danger">
+                                                <i class="mdi mdi-delete"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

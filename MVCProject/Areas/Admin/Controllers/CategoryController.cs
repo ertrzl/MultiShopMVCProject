@@ -21,6 +21,7 @@ namespace MVCProject.Areas.Admin.Controllers
         public async  Task<IActionResult> Index()
         {
             List<Category> categories = await _context.Categories
+                .Include(c => c.Products.Where(p => !p.IsDeleted))
                 .Where(c => c.IsDeleted == false)
                 .ToListAsync();
 

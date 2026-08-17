@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MVCProject.Models;
@@ -114,6 +115,7 @@ namespace MVCProject.Controllers
         }
 
 
+        [Authorize(Roles = nameof(AppRole.Admin))]
         public async Task CreateRoles()
         {
             foreach (AppRole role in Enum.GetValues(typeof(AppRole)))

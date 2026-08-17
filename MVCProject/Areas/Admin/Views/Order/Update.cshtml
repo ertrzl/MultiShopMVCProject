@@ -1,0 +1,36 @@
+@using MVCProject.Utilities.Enums
+@model Order
+
+@{
+    ViewData["Title"] = "Update Order Status";
+}
+
+<div class="row">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Order #@Model.Id — Update Status</h4>
+                <form asp-area="Admin" asp-controller="Order" asp-action="Update" asp-route-id="@Model.Id" method="post">
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select name="status" class="form-control">
+                            @foreach (var status in Enum.GetValues<OrderStatus>())
+                            {
+                                if (status == Model.Status)
+                                {
+                                    <option value="@status" selected="selected">@status</option>
+                                }
+                                else
+                                {
+                                    <option value="@status">@status</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a asp-area="Admin" asp-controller="Order" asp-action="Index" class="btn btn-light">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

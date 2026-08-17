@@ -1,0 +1,63 @@
+@model Order
+
+@{
+    ViewData["Title"] = "Order Details";
+}
+
+<div class="row">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Order #@Model.Id</h4>
+                <table class="table table-borderless mb-4" style="max-width: 500px;">
+                    <tr>
+                        <th>Customer</th>
+                        <td>@Model.User?.Email</td>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td><span class="badge bg-primary">@Model.Status</span></td>
+                    </tr>
+                    <tr>
+                        <th>Date</th>
+                        <td>@Model.CreatedAt.ToString("dd MMM yyyy HH:mm")</td>
+                    </tr>
+                    <tr>
+                        <th>Total</th>
+                        <td>@Model.TotalPrice.ToString("C")</td>
+                    </tr>
+                </table>
+
+                <h5 class="mb-3">Items</h5>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Unit Price</th>
+                                <th>Quantity</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.OrderItems)
+                            {
+                                <tr>
+                                    <td>
+                                        <img src="@item.Product.ImageUrl" alt="@item.Product.Name" style="width: 40px; height: 40px; object-fit: cover;" class="mr-2" />
+                                        @item.Product.Name
+                                    </td>
+                                    <td>@item.UnitPrice.ToString("C")</td>
+                                    <td>@item.Quantity</td>
+                                    <td>@((item.UnitPrice * item.Quantity).ToString("C"))</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <a asp-area="Admin" asp-controller="Order" asp-action="Index" class="btn btn-light">Back to list</a>
+            </div>
+        </div>
+    </div>
+</div>
