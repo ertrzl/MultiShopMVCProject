@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MVCProject.DAL;
@@ -62,11 +63,13 @@ namespace MVCProject.Controllers
             return View(model);
         }
 
+        [Authorize]
         public IActionResult Cart()
         {
             return View();
         }
 
+        [Authorize]
         public IActionResult Checkout()
         {
             return View();

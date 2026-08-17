@@ -28,6 +28,11 @@ namespace MVCProject.Controllers
             return View();
         }
 
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterVM vm)
@@ -58,6 +63,8 @@ namespace MVCProject.Controllers
                 }
                 return View(vm);
             }
+
+            await _userManager.AddToRoleAsync(user, AppRole.Member.ToString());
 
             await _signInManager.SignInAsync(user, isPersistent: false);
             return RedirectToAction("Index", "Home");

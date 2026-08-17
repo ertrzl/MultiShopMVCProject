@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using MVCProject.ViewModels;
 namespace MVCProject.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = $"{nameof(AppRole.Admin)},{nameof(AppRole.Moderator)}")]
     public class ProductController : Controller
     {
         private readonly AppDbContext _context;
@@ -187,6 +189,7 @@ namespace MVCProject.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = nameof(AppRole.Admin))]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id is null || id < 1) return BadRequest();

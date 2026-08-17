@@ -1,11 +1,14 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MVCProject.DAL;
 using MVCProject.Models;
+using MVCProject.Utilities.Enums;
 
 namespace MVCProject.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = nameof(AppRole.Admin))]
     public class CategoryController : Controller
     {
 

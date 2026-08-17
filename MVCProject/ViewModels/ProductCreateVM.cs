@@ -24,7 +24,7 @@ namespace MVCProject.ViewModels
         [Required(ErrorMessage = "Please select a category")]
         public int CategoryId { get; set; }
 
-        // Display-only, populated by the controller, never posted back by the form
+        
         [ValidateNever]
         public List<SelectListItem> Categories { get; set; } = new();
 
